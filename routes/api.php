@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\V1\AlbumController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
