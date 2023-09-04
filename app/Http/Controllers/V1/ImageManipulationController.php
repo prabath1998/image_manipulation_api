@@ -186,4 +186,8 @@ class ImageManipulationController extends Controller
         $newImage->save($absolutePath.$bluredImageName);
 
     }
+
+    public function changeContrast(){
+        
+    }
 }
