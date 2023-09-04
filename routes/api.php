@@ -26,5 +26,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('image/{image}', [ImageManipulationController::class, 'show']);
         Route::post('image/resize', [ImageManipulationController::class, 'resize']);
         Route::delete('image/{image}', [ImageManipulationController::class, 'destroy']);
+
+        Route::post('image/blur', [ImageManipulationController::class, 'blurImage']);
     });
 });

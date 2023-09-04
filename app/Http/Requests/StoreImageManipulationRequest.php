@@ -26,7 +26,8 @@ class StoreImageManipulationRequest extends FormRequest
             'image' => ['required'],
             'w' => ['required', 'regex:/^\d+(\.\d+)?%?$/'],
             'h' => 'regex:/^\d+(\.\d+)?%?$/',
-            'album_id' => 'exists:\App\Models\Album,id'
+            'album_id' => 'exists:\App\Models\Album,id',
+            'blur' => 'integer',
         ];
 
         $image = $this->all()['image'] ?? false;

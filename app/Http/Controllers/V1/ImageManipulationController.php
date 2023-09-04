@@ -148,4 +148,42 @@ class ImageManipulationController extends Controller
 
         return [$newWidth, $newHeight, $image];
     }
+
+    public function blurImage(StoreImageManipulationRequest $request){
+        $all = $request->all();
+
+        $image = $all['image'];
+
+
+        unset($all['image']);
+
+        $data = [
+            'type' => ImageManipulation::TYPE_RESIZE,
+            'data' => json_encode($all),
+            'user_id' => $request->user()->id,
+            'blur' => $request->blur
+        ];
+
+        $dir = 'images/' . Str::random() . '/';
+        $absolutePath = public_path($dir);
+
+        File::makeDirectory($absolutePath);
+
+        if ($image instanceof UploadedFile) {
+            $data['name'] = $image->getClientOriginalName();
+            $filename = pathinfo($data['name'], PATHINFO_FILENAME);
+            $extension = $image->getClientOriginalExtension();
+            $originalPath = $absolutePath.$data['name'];
+
+            $image->move($absolutePath, $data['name']);
+        }
+
+        $bluredImageName = $filename.'-blurred.'.$extension;
+
+
+        $newImage = Image::make($originalPath);
+        $newImage->blur($data['blur']);
+        $newImage->save($absolutePath.$bluredImageName);
+
+    }
 }
