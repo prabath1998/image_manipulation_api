@@ -176,6 +176,13 @@ class ImageManipulationController extends Controller
             $originalPath = $absolutePath.$data['name'];
 
             $image->move($absolutePath, $data['name']);
+        }else{
+            $data['name'] = pathinfo($image, PATHINFO_BASENAME);
+            $filename = pathinfo($image, PATHINFO_FILENAME);
+            $extension = pathinfo($image, PATHINFO_EXTENSION);
+            $originalPath = $absolutePath.$data['name'];
+
+            copy($image, $originalPath);
         }
 
         $bluredImageName = $filename.'-blurred.'.$extension;
@@ -188,6 +195,6 @@ class ImageManipulationController extends Controller
     }
 
     public function changeContrast(){
-        
+
     }
 }
